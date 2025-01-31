@@ -2,12 +2,118 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book List</title>
+    <style>
+        .book-container {
+            max-width: 600px;
+            margin: auto;
+            text-align: left;
+        }
+        .book {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .book img {
+            max-width: 100px;
+            display: block;
+        }
+
+        .star {
+            font-size: 20px;
+            cursor: pointer;
+            color: gray;
+        }
+
+        .star.active {
+            color: gold; /* Change color when active */
+        }
+    </style>
 </head>
 <body>
-  <div class="center_div">
-    <h1>Hello World!</h1>
-    <p>This example contains some advanced CSS methods you may not have learned yet. But, we will explain these methods in a later chapter in the tutorial.</p>
-  </div>
+<div class="center_div">
+    <h1>📚 Book List</h1>
+    <p>This page dynamically loads books from the server.</p>
+</div>
+
+<!-- This is where books will be displayed -->
+<div class="book-container" id="book-list"></div>
+
+<script>
+    // Fetch books from the API and display them
+    fetch('/books')
+      .then(response => response.json())
+      .then(books => {
+        const bookList = document.getElementById("book-list");
+        bookList.innerHTML = ""; // Clear any existing content
+
+        books.forEach(book => {
+          const bookDiv = document.createElement("div");
+          bookDiv.classList.add("book");
+
+          // Add rating stars
+          const ratingDiv = document.createElement("div");
+          ratingDiv.classList.add("rating");
+          ratingDiv.dataset.bookId = book.id;
+
+          // Create 5 stars
+          for (let i = 1; i <= 5; i++) {
+              const star = document.createElement("span");
+              star.classList.add("star");
+              star.innerHTML = "☆";
+              star.dataset.value = i;
+
+              // Add click handler
+              star.addEventListener('click', function() {
+                  // Remove active class from all stars in this rating
+                  this.parentNode.querySelectorAll('.star').forEach(s =>
+                      s.classList.remove('active')
+                  );
+
+                  // Activate clicked star and all previous stars
+                  let current = this;
+                  while(current) {
+                      current.classList.add('active');
+                      current = current.previousElementSibling;
+                  }
+
+                  // Send rating to server with error handling
+                  fetch(`/books/${book.id}/rate?rating=${this.dataset.value}`, {
+                      method: 'POST'
+                  })
+                  .then(response => {
+                      if (!response.ok) {
+                          if (response.status === 403) {
+                              alert('Please log in to rate books!');
+                              window.location.href = '/login'; // Redirect to login
+                              return;
+                          }
+                          throw new Error('Network response was not ok');
+                      }
+<!--                      return response.json();-->
+                  })
+                  .catch(error => {
+                      console.error('Error:', error);
+                  });
+              });
+
+              ratingDiv.appendChild(star);
+          }
+
+          bookDiv.innerHTML = `
+            <h3>${book.bookName}</h3>
+            <p><strong>Author:</strong> ${book.author}</p>
+            <img src="${book.imgURL}" alt="${book.bookName}">
+          `;
+
+          bookDiv.appendChild(ratingDiv);
+          bookList.appendChild(bookDiv);
+        });
+      })
+      .catch(error => console.error("Error fetching books:", error));
+</script>
+
 </body>
 </html>
