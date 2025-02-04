@@ -2,20 +2,19 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 
-@Entity(name = "User")
+@Entity(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(nullable = false, unique = true)
     private String email;
     @Column(nullable = false)
-    private String passwor;
+    private String password;
 
-    public User(Long id, String email, String passwor) {
-        this.id = id;
+    public User(String email, String password) {
         this.email = email;
-        this.passwor = passwor;
+        this.password = password;
     }
 
     public User() {
@@ -26,7 +25,31 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", passwor='" + passwor + '\'' +
+                ", passwor='" + password + '\'' +
                 '}';
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
