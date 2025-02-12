@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,6 +23,10 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+
     @Value("${jwt.secret}")
     private String secretKey;
     private final long expirationTime = 86_400_000;
@@ -32,7 +37,7 @@ public class UserController {
         User dbUser = userRepository.findUserByEmail(loginRequest.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
 
-        if (dbUser.getPassword().equals(loginRequest.getPassword())) {
+        if (passwordEncoder.matches(loginRequest.getPassword(), dbUser.getPassword())) {
             String token = Jwts.builder()
                     .setSubject(loginRequest.getUsername())
                     .setIssuedAt(new Date())
@@ -56,10 +61,8 @@ public class UserController {
             return ResponseEntity.badRequest().body("Passwords do not match");
         }
 
-        userRepository.save(new User(registrationRequest.getUsername(), registrationRequest.getPassword()));
+        String hashedPassword = passwordEncoder.encode(registrationRequest.getPassword());
+        userRepository.save(new User(registrationRequest.getUsername(), hashedPassword));
         return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
     }
 }
-
-
-

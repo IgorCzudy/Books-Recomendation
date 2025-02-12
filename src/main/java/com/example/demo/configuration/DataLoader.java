@@ -4,9 +4,11 @@ import com.example.demo.model.Book;
 import com.example.demo.model.User;
 import com.example.demo.repositories.BookRepository;
 import com.example.demo.repositories.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class DataLoader {
@@ -21,12 +23,14 @@ public class DataLoader {
             }
         };
     }
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public CommandLineRunner loadUserData(UserRepository userRepository) {
         return args -> {
             if (userRepository.count() == 0) { // Only insert if empty
-                userRepository.save(new User("User", "User"));
+                userRepository.save(new User("User", passwordEncoder.encode("User")));
             }
         };
     }

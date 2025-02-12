@@ -15,34 +15,14 @@ import java.util.List;
 public class BookController {
 
     private final BookService bookService;
-    private final BookRaitingService bookRaitingService;
 
-    public BookController(BookService bookService, BookRaitingService bookRaitingService) {
+    public BookController(BookService bookService) {
         this.bookService = bookService;
-        this.bookRaitingService = bookRaitingService;
     }
 
     @GetMapping
     public List<Book> getBooks(){
         return bookService.getBooks();
-    }
-
-    @PostMapping("/{bookId}/rate")
-    @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<String> rateBook(
-            @PathVariable Long bookId,
-            @RequestParam int rating,
-            Principal principal
-            ){
-
-        System.out.println("User: " + principal.getName()); // Prints logged-in user
-        System.out.println("Book ID: " + bookId);
-        System.out.println("Rating: " + rating);
-
-        bookRaitingService.CreateBookRaiting(rating, principal.getName(), bookId);
-        System.out.println("Added to DB");
-        return ResponseEntity.ok("Rating received");
-
     }
 
 }
