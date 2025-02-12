@@ -32,7 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private String extractToken(HttpServletRequest request) {
-        System.out.printf("request " + request.toString());
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
@@ -41,7 +40,6 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private boolean validateToken(String token) {
-        System.out.printf("token " + token);
         try {
             Jwts.parser().setSigningKey(secretKey.getBytes()).parseClaimsJws(token);
             return true;

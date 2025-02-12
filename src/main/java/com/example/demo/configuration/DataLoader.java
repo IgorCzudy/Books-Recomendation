@@ -1,7 +1,9 @@
 package com.example.demo.configuration;
 
 import com.example.demo.model.Book;
+import com.example.demo.model.User;
 import com.example.demo.repositories.BookRepository;
+import com.example.demo.repositories.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class DataLoader {
 
     @Bean
-    public CommandLineRunner loadData(BookRepository bookRepository) {
+    public CommandLineRunner loadBookData(BookRepository bookRepository) {
         return args -> {
             if (bookRepository.count() == 0) { // Only insert if empty
                 bookRepository.save(new Book("Adam Mickiewicz", "Pan Tadeusz", "/images/panTadeusz.jpg"));
@@ -19,4 +21,15 @@ public class DataLoader {
             }
         };
     }
+
+    @Bean
+    public CommandLineRunner loadUserData(UserRepository userRepository) {
+        return args -> {
+            if (userRepository.count() == 0) { // Only insert if empty
+                userRepository.save(new User("User", "User"));
+            }
+        };
+    }
+
+
 }

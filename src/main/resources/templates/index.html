@@ -81,7 +81,8 @@
 
                   // Send rating to server with error handling
                   fetch(`/books/${book.id}/rate?rating=${this.dataset.value}`, {
-                      method: 'POST'
+                      method: 'POST',
+                      credentials: 'include'
                   })
                   .then(response => {
                       if (!response.ok) {

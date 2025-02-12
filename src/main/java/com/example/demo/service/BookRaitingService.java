@@ -15,17 +15,12 @@ public class BookRaitingService {
     private BookRaitingRepository bookRaitingRepository;
 
     public BookRaiting CreateBookRaiting(int rate, String user, Long bookId){
-
         BookRaiting bookRaiting = new BookRaiting(rate, user, bookId);
         bookRaitingRepository.save(bookRaiting);
-
         return bookRaiting;
-
     }
 
     public List<BookRaiting> getRatingsOfCertainUserId(String user){
-
         return bookRaitingRepository.findByUser(user);
-
     }
 }
