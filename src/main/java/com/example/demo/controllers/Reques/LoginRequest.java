@@ -1,6 +1,6 @@
-package com.example.demo.controllers;
+package com.example.demo.controllers.Reques;
 
-class LoginRequest {
+public class LoginRequest {
     private String username;
     private String password;
 

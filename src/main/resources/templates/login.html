@@ -47,6 +47,7 @@
           font-size: 16px;
           border-radius: 4px;
           cursor: pointer;
+          margin-bottom: 10px; /* Adds space below each button */
         }
         .login-container button:hover {
           background-color: #0056b3;
@@ -60,7 +61,7 @@
 </head>
 <body>
 <div class="login-container">
-    <h2>Login</h2>
+    <h2>📚 Login</h2>
     <form id="loginForm">
         <label for="username">Username</label>
         <input type="text" id="username" name="username" placeholder="Enter username" required />
@@ -70,10 +71,19 @@
 
         <button type="submit">Login</button>
     </form>
+
+    <button id="gotoregistration">I don't hava an account</button>
+
     <div id="message" class="message"></div>
 </div>
 
 <script>
+    const button = document.getElementById('gotoregistration');
+    // Add a click event listener to the button
+    button.addEventListener('click', function() {
+            window.location.href = "/register";
+    });
+
     // Listen for the form submission
     document.getElementById('loginForm').addEventListener('submit', function(e) {
       e.preventDefault(); // Prevent the default form submission behavior
@@ -84,7 +94,7 @@
 
       // Use Fetch API to send a POST request to the login endpoint.
       // Change '/login' to your actual endpoint if needed.
-      fetch('/login', {
+      fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -99,6 +109,8 @@
       })
       .then(data => {
         // Display success message or handle further navigation
+            //store token
+            localStorage.setItem('jwtToken', data);
             // Display success message
             document.getElementById('message').innerText = 'Signup successful!';
 

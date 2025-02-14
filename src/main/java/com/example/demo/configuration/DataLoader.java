@@ -9,6 +9,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.Arrays;
+import java.util.LinkedList;
+
 
 @Configuration
 public class DataLoader {
@@ -17,9 +22,31 @@ public class DataLoader {
     public CommandLineRunner loadBookData(BookRepository bookRepository) {
         return args -> {
             if (bookRepository.count() == 0) { // Only insert if empty
-                bookRepository.save(new Book("Adam Mickiewicz", "Pan Tadeusz", "/images/panTadeusz.jpg"));
-                bookRepository.save(new Book("Tolken", "Hobbit", "/images/hobbit.jpg"));
-                bookRepository.save(new Book("George Orwell", "1984", "/images/1984.jpeg"));
+                LinkedList<Book> books = new LinkedList<>();
+                try (BufferedReader br = new BufferedReader(new FileReader("/home/igor-czudy/code/demo (3)/demo/src/main/java/com/example/demo/configuration/archive/book30-listing-test.csv"))) {
+                    br.readLine(); // Skip the first line (header row)
+                    String line;
+                    int i=0;
+                    while (i<30){//((line = br.readLine()) != null) {
+                        i+=1;
+                        line = br.readLine();
+                        String[] values = line.split(";");
+                        if (values.length >= 5) {
+                            String author = values[4];
+                            String title = values[3];
+                            String imgURL = values[2];
+                            if (author.isEmpty() || title.isEmpty() || imgURL.isEmpty()){
+                                continue;
+                            }
+
+                            books.add(new Book(author, title, imgURL));
+                        } else {
+                            System.err.println("Skipping invalid row: " + Arrays.toString(values));
+                        }
+
+                    }
+                }
+                bookRepository.saveAll(books);
             }
         };
     }
@@ -34,6 +61,4 @@ public class DataLoader {
             }
         };
     }
-
-
 }

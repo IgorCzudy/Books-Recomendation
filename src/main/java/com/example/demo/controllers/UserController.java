@@ -1,6 +1,8 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.controllers.Reques.LoginRequest;
+import com.example.demo.controllers.Reques.RegistrationRequest;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +17,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
-import java.util.Optional;
 
 @RestController
 public class UserController {
@@ -34,8 +35,8 @@ public class UserController {
     @PostMapping("/api/login")
     public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
 
-        User dbUser = userRepository.findUserByEmail(loginRequest.getUsername())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found"));
+        User dbUser = userRepository.findUserByUserName(loginRequest.getUsername())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "User not found, you have a token from previous run"));
 
         if (passwordEncoder.matches(loginRequest.getPassword(), dbUser.getPassword())) {
             String token = Jwts.builder()
@@ -52,7 +53,7 @@ public class UserController {
 
     @PostMapping("/api/register")
     public ResponseEntity<String> register(@RequestBody RegistrationRequest registrationRequest) {
-        if (userRepository.findUserByEmail(registrationRequest.getUsername()).isPresent()) {
+        if (userRepository.findUserByUserName(registrationRequest.getUsername()).isPresent()) {
             return ResponseEntity.status(HttpStatus.CONFLICT)
                     .body("Error: Email is already in use!");
         }

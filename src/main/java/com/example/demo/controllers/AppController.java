@@ -17,8 +17,8 @@ public class AppController {
         return "login";
     }
 
-    @GetMapping("/req/signup")
+    @GetMapping("/register")
     public String signup(){
-        return "signup";
+        return "register";
     }
 }
