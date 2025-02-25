@@ -7,15 +7,22 @@ body {
     box-sizing: border-box;
 }
 
+/* Make the header sticky */
+.center_div {
+    text-align: center;
+    margin: 10px;
+    position: sticky;
+    top: 0;
+    background-color: #f7f7f7; /* To match the background */
+    padding-top: 10px;
+    z-index: 10; /* Ensure it stays above other content */
+}
+
+/* Adjusting the styling of h1 */
 h1 {
     text-align: center;
     margin-bottom: 20px;
     color: #333;
-}
-
-.center_div {
-    text-align: center;
-    margin: 20px;
 }
 
 /* Search Input Styling */
@@ -48,7 +55,10 @@ h1 {
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 10;
+    z-index: 1000; /* Ensure this stays on top of everything */
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
 
 .auth-button {
@@ -72,7 +82,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    padding: 80px 20px 20px; /* Adding top padding to avoid overlap with fixed button */
+    padding: 120px 20px 20px; /* Add extra top padding to account for the sticky auth-container */
     max-width: 1000px;
     margin: 0 auto;
     z-index: 1;

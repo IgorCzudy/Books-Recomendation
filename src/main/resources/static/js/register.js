@@ -1,14 +1,12 @@
 
-// Listen for the form's submit event
 document.getElementById('registerForm').addEventListener('submit', function (e) {
-  e.preventDefault(); // Prevent the default form submission
-  // Gather form data
+  e.preventDefault();
+
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
   const repeatedPassword = document.getElementById('repeatedPassword').value;
 
-  // Send a POST request using the Fetch API
-  fetch('/api/register', {  // Change '/register' to your actual registration endpoint
+  fetch('/api/register', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -19,13 +17,13 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.text();  // or response.json() if expecting JSON
+    return response.json();
   })
   .then(data => {
     document.getElementById('message').innerText = 'Signup successful!';
     setTimeout(() => {
         window.location.href = "/login";
-    }, 500); // 1500ms = 1.5 seconds
+    }, 500);
 
   })
   .catch(error => {
