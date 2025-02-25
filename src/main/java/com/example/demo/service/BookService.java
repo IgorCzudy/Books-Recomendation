@@ -18,4 +18,7 @@ public class BookService {
         return bookRepository.findAll();
     }
 
+    public List<Book> searchBooks(String regex) {
+        return bookRepository.findRegex(regex);
+    }
 }

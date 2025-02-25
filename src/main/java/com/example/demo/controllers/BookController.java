@@ -25,4 +25,9 @@ public class BookController {
         return bookService.getBooks();
     }
 
+    @GetMapping("/search")
+    public List<Book> searchBooks(@RequestParam String regex){
+        return bookService.searchBooks(regex);
+    }
+
 }
