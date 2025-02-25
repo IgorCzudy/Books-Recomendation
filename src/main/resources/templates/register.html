@@ -4,76 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Page</title>
-    <style>
-        /* Basic styling for better presentation */
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #f0f2f5;
-        }
+    <link rel="stylesheet" href="/css/register_style.css">
 
-        .register-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 400px;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        label {
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-
-        input {
-            padding: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 1rem;
-        }
-
-        button {
-            background-color: #007bff;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1rem;
-            margin-top: 1rem;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .message {
-            margin-top: 1rem;
-            padding: 0.5rem;
-            border-radius: 4px;
-        }
-
-        .error {
-            color: #dc3545;
-            background-color: #f8d7da;
-        }
-
-        .success {
-            color: #28a745;
-            background-color: #d4edda;
-        }
-    </style>
 </head>
 <body>
 <div class="register-container">
@@ -94,41 +26,6 @@
     <div id="message" class="message"></div>
 </div>
 
-<script>
-    // Listen for the form's submit event
-    document.getElementById('registerForm').addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent the default form submission
-      // Gather form data
-      const username = document.getElementById('username').value;
-      const password = document.getElementById('password').value;
-      const repeatedPassword = document.getElementById('repeatedPassword').value;
-
-      // Send a POST request using the Fetch API
-      fetch('/api/register', {  // Change '/register' to your actual registration endpoint
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password, repeatedPassword })
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text();  // or response.json() if expecting JSON
-      })
-      .then(data => {
-        document.getElementById('message').innerText = 'Signup successful!';
-        setTimeout(() => {
-            window.location.href = "/login";
-        }, 500); // 1500ms = 1.5 seconds
-
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        document.getElementById('message').innerText = 'Signup failed. Please try again.';
-      });
-    });
-</script>
+<script src="/js/register.js"></script>
 </body>
 </html>
