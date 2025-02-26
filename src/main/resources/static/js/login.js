@@ -21,7 +21,7 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     if (!response.ok) {
       throw new Error('Login failed');
     }
-    return response.json();
+    return response.text();
   })
   .then(data => {localStorage.setItem('jwtToken', data);
         document.getElementById('message').innerText = 'Signup successful!';

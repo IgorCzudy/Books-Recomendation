@@ -17,9 +17,9 @@ document.getElementById('registerForm').addEventListener('submit', function (e) 
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
-    return response.json();
+    return response;
   })
-  .then(data => {
+  .then(text => {
     document.getElementById('message').innerText = 'Signup successful!';
     setTimeout(() => {
         window.location.href = "/login";
