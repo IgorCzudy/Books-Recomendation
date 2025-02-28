@@ -1,11 +1,17 @@
 const searchBar = document.getElementById('searchFild');
 const bookList = document.getElementById('book-list');
 const authButton = document.getElementById('authButton');
+const recommendationButton = document.getElementById('recommendationButton');
+
 
 function updateAuthButton() {
     const token = localStorage.getItem('jwtToken');
     authButton.textContent = token ? 'Logout' : 'Login';
 }
+
+recommendationButton.addEventListener('click', () => {
+    setTimeout(() => window.location.href = '/recommendation', 500);
+})
 
 authButton.addEventListener('click', () => {
     const redirectUrl = localStorage.getItem('jwtToken') ? '/' : '/login';

@@ -76,26 +76,6 @@ h1 {
     background-color: #0056b3;
 }
 
-.recommendation-button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 14px;
-
-    position: fixed; /* Fixed position relative to the viewport */
-    top: 20px; /* Distance from the top of the viewport */
-    left: 10px; /* Distance from the left of the viewport */
-    z-index: 1000; /* Ensure it's on top of other elements */
-}
-
-.recommendation-button:hover {
-    background-color: #0056b3;
-}
-
 /* Book Container */
 .book-container {
     display: flex;
