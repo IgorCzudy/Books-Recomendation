@@ -1,4 +1,9 @@
 const bookList = document.getElementById('book-list');
+const homeButton = document.getElementById('homeButton');
+
+homeButton.addEventListener('click', () => {
+    setTimeout(() => window.location.href = '/', 500);
+})
 
 function displayBooks(books) {
     bookList.innerHTML = "";
@@ -35,7 +40,15 @@ function fetchRecommendedBooks(url) {
                 return response.json();
             })
             .then(data => {
-                displayBooks(data);  // Assuming the response contains books in `data.books`
+                const container = document.getElementById('recommendationContainer');
+
+                if (!data || data.length === 0) {  // Check if data is empty
+                        container.innerHTML = "<p>I need to know what you like. Add more positive reviews to get recommendations.</p>";
+                        container.style.display = "block"; // Show the message
+                    } else {
+                        container.style.display = "none"; // Hide if data exists
+                        displayBooks(data);
+                    }
             })
             .catch(error => {
                 console.error('Error fetching recommendations:', error);

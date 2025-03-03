@@ -26,6 +26,72 @@ h1 {
     color: #333;
 }
 
+.home-button:hover {
+    background-color: #0056b3;
+}
+
+/* Recommendation Container */
+#recommendationContainer {
+    margin-top: 20px;
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none; /* Initially hidden */
+}
+
+/* Message inside the Recommendation Container */
+#recommendationContainer p {
+    margin: 0;
+    padding: 10px;
+    color: #555;
+}
+
+.home-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 24px;
+
+    position: fixed; /* Fixed position relative to the viewport */
+    top: 20px; /* Distance from the top of the viewport */
+    left: 10px; /* Distance from the left of the viewport */
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.recommendation-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 14px;
+
+    position: fixed; /* Fixed position relative to the viewport */
+    top: 20px; /* Distance from the top of the viewport */
+    left: 10px; /* Distance from the left of the viewport */
+    z-index: 1000; /* Ensure it's on top of other elements */
+}
+
+.recommendation-button:hover {
+    background-color: #0056b3;
+}
+
+
 /* Search Input Styling */
 .search-fild {
     padding: 10px;
