@@ -33,6 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/books/*/rate").authenticated()
+//                        .requestMatchers(HttpMethod.GET, "/recommendation").authenticated()
                         .anyRequest().permitAll()
                 )
                 .addFilterBefore(new JwtFilter(secretKey), UsernamePasswordAuthenticationFilter.class)

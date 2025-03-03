@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity(name="books")
 public class Book {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     @Column(nullable = false, length = 1000)
     private String author;

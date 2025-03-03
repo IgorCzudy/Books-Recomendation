@@ -4,6 +4,9 @@ server:
     include-binding-errors: always
 
 spring:
+  run:
+    jvmArguments=-Xms4g -Xmx7g
+
   datasource:
     url: jdbc:postgresql://localhost:5432/registration
     username: postgres

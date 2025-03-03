@@ -21,4 +21,9 @@ public class AppController {
     public String signup(){
         return "register";
     }
+
+    @GetMapping("/recommendation")
+    public String recommendation(){
+        return "recommendation";
+    }
 }

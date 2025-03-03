@@ -23,7 +23,7 @@ public class RecommendationService {
 
 
     public List<Book> getRecomendation(List<Long> highRatedBookIds) throws IOException {
-        String filePath = "/home/igor-czudy/code/demo (3)/demo/src/main/resources/archive/book_similarity_matrix.csv";
+        String filePath = "BookRecApp/src/main/resources/archive/book_similarity_matrix.csv";
 
 
         List<List<Float>> dataList = new ArrayList<>();

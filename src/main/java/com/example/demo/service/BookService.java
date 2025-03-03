@@ -6,6 +6,7 @@ import com.example.demo.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,5 +21,9 @@ public class BookService {
 
     public List<Book> searchBooks(String regex) {
         return bookRepository.findRegex(regex);
+    }
+
+    public List<Book> findBooksByIds(List<Long> recommendedBooks) {
+        return bookRepository.findAllById(recommendedBooks);
     }
 }
