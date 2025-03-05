@@ -1,6 +1,6 @@
 # Book recommendation system 📚
 
-This is a RESTful application with a JavaScript frontend that helps you find perfect book for your next read.
+This is a RESTful Java Spring Boot application with a JavaScript frontend that helps you find perfect book for your next read.
 Users can register and login to the application. They can rate books from one to five stars. 
 There are 300 books available rate, and search bar helps find a specific one. 
 Users receive books recommendation based on their positive rates. 
