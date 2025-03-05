@@ -17,7 +17,7 @@ mvn clean package
 
 > [!NOTE]
 > For compilation postgressql is required. <br>
-> $sudo systemctl start postgresql 
+> `$sudo systemctl start postgresql`
 
 
 
@@ -43,13 +43,13 @@ After that, visit http://localhost:8080/ to access the main page.
 - Register page
 
 <div style="text-align: center;">
-  <img src="img/register.png" alt="Register page" width="300">
+  <img src="img/register.png" alt="Register page" width="200">
 </div>
 
 - Login page
 
 <div style="text-align: center;">
-  <img src="img/login.png" alt="Register page" width="300">
+  <img src="img/login.png" alt="Register page" width="200">
 </div>
 
 - Search bar feature
@@ -131,6 +131,12 @@ This project use [PostgreSQL](https://www.postgresql.org/) database for storing 
 Database raltional diagram:
 
 ![UMLdiagram.svg](img/UMLdiagram.svg)
+
+## Recommendation model
+The dataset used for this recommendation system is the [Goodbooks-10k](https://github.com/zygmuntz/goodbooks-10k) dataset, which contains information about books and user ratings.
+This recommendation system uses cosine similarity to recommend books based on the ratings provided by users.
+Cosine similarity measures how similar the books are to each other. The model finds the most similar books to those that user already read and like. 
+
 
 ## Troubleshooting
 
